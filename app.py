@@ -6,7 +6,7 @@ import asyncio
 from datetime import timedelta
 import re
 
-load_dotenv()
+TOKEN = os.environ.get('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.message_content = True
