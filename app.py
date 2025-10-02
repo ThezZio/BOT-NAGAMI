@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import asyncio
 from datetime import timedelta
 import re
+from aiohttp import web
 
 TOKEN = os.environ.get('DISCORD_TOKEN')
 
@@ -22,6 +23,22 @@ async def on_ready():
         print(f'ID: {bot.user.id}')
         print('------')
         await bot.change_presence(activity=discord.Game(name="Modération | +help"))
+
+async def handle(request):
+    return web.Response(text="Bot is alive!")
+
+app = web.Application()
+app.add_routes([web.get("/", handle)])
+
+async def start_webserver():
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', int(os.environ.get("PORT", 8000)))
+    await site.start()
+
+asyncio.get_event_loop().create_task(start_webserver())
+
+bot.run(TOKEN
 
 @bot.event
 async def on_message(message):
