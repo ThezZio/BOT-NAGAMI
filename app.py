@@ -38,7 +38,7 @@ async def start_webserver():
 
 asyncio.get_event_loop().create_task(start_webserver())
 
-bot.run(TOKEN
+bot.run(TOKEN)
 
 @bot.event
 async def on_message(message):
